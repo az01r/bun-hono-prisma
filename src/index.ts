@@ -1,5 +1,5 @@
-import { OpenAPIHono } from '@hono/zod-openapi'
+import { createApp } from './config/app.config.js'
 
-const app = new OpenAPIHono()
+const app = createApp()
 
 export default { port: process.env.PORT, fetch: app.fetch }
