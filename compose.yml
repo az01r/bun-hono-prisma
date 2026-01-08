@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: bun-hono-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-bun-hono-db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  app:
+    build:
+      context: .
+      target: ${BUN_ENV:-development}
+    container_name: bun-hono-app
+    restart: always
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-password}@db:5432/${POSTGRES_DB:-bun-hono-db}?schema=public
+      - PORT=${PORT:-3000}
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
