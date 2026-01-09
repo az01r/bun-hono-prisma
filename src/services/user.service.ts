@@ -1,5 +1,5 @@
 import { Prisma } from "../generated/prisma/client.js";
-import UserDAO from "../daos/user-dao.js";
+import UserDAO from "../daos/user.dao.js";
 import { INVALID_EMAIL_OR_PASSWORD, USER_ALREADY_REGISTERED, USER_NOT_FOUND } from "../utils/constants.js";
 import { LoginUser, ResponseUserDTO, SignupUser, UpdateUserDTO } from "../models/user.model.js";
 import { sign } from "hono/jwt";

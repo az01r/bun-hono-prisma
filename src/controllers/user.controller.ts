@@ -1,7 +1,7 @@
 import { RouteHandler } from '@hono/zod-openapi'
 import { deleteUserRoute, getUserRoute, loginRoute, signupRoute, updateUserRoute } from '../routes/user.routes'
 import { AuthResponse, LoginUser, UpdateUserDTO, ResponseUserDTO } from '../models/user.model'
-import UserService from '../services/user-service'
+import UserService from '../services/user.service'
 import { SignupUser } from '../models/user.model'
 import { LOGIN_SUCCESSFUL, SIGNUP_SUCCESSFUL, USER_DELETED_SUCCESSFULLY } from '../utils/constants'
 import { AppEnv } from '../models/app.model'

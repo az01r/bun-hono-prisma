@@ -2,7 +2,7 @@ import { createRoute, OpenAPIHono } from '@hono/zod-openapi'
 import { AuthResponseSchema, LoginUserSchema, SignupUserSchema, UpdateUserSchema, ResponseUserSchema, DeleteUserResponseSchema } from '../models/user.model'
 import { deleteUser, getUser, login, signup, updateUser } from '../controllers/user.controller'
 import { ErrorResponseSchema } from '../models/error.model'
-import { isAuth } from '../middlewares/isAuth'
+import { isAuth } from '../middlewares/is-auth'
 import { AppEnv } from '../models/app.model'
 import { INVALID_EMAIL_OR_PASSWORD, UNAUTHORIZED, USER_DELETED_SUCCESSFULLY, USER_NOT_FOUND, VALIDATION_ERROR } from '../utils/constants'
 
