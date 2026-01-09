@@ -27,9 +27,9 @@ export const ResponseUserSchema = z.object({
   email: z.string().openapi({ example: 'john@example.com' }),
   firstName: z.string().nullable().openapi({ example: 'John' }),
   lastName: z.string().nullable().openapi({ example: 'Doe' }),
-  birthDate: z.date().nullable().openapi({ example: '2022-01-01T00:00:00.000Z' }),
-  createdAt: z.date().openapi({ example: '2022-01-01T00:00:00.000Z' }),
-  updatedAt: z.date().openapi({ example: '2022-01-01T00:00:00.000Z' }),
+  birthDate: z.date().nullable().openapi({ example: '2026-01-01' }),
+  createdAt: z.date().openapi({ example: '2026-01-01T00:00:00.000Z' }),
+  updatedAt: z.date().openapi({ example: '2026-01-01T00:00:00.000Z' }),
 }).openapi('User')
 
 export type ResponseUserDTO = z.infer<typeof ResponseUserSchema>
@@ -39,7 +39,7 @@ export const UpdateUserSchema = z.object({
   password: z.string().min(8).openapi({ example: 'password123' }),
   firstName: z.string().nullable().openapi({ example: 'John' }),
   lastName: z.string().nullable().openapi({ example: 'Doe' }),
-  birthDate: z.date().nullable().openapi({ example: '2022-01-01T00:00:00.000Z' }),
+  birthDate: z.coerce.date().nullable().openapi({ example: '2026-01-01' }),
 }).openapi('UpdateUser')
 
 export type UpdateUserDTO = z.infer<typeof UpdateUserSchema>

@@ -94,7 +94,7 @@ export const updateUserRoute = createRoute({
   responses: {
     200: {
       content: { 'application/json': { schema: ResponseUserSchema } },
-      description: 'Return logged user details',
+      description: 'Logged user details',
     },
     401: {
       content: { 'application/json': { schema: ErrorResponseSchema } },
