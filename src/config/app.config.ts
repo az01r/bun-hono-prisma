@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
 import userRouter from '../routes/user.routes'
 import taxProfileRouter from '../routes/tax-profile.routes'
-// import invoiceRouter from '../routes/invoice.routes'
+import invoiceRouter from '../routes/invoice.routes'
 import { registerOpenApiRoutes } from './openapi.config'
 import { errorHandler } from '../middlewares/error-handler'
 import { AppEnv } from '../models/app.model'
@@ -15,7 +15,7 @@ export const createApp = () => {
 
   app.route('/user', userRouter)
   app.route('/tax-profile', taxProfileRouter)
-  // app.route('/invoice', invoiceRouter)
+  app.route('/invoice', invoiceRouter)
 
   registerOpenApiRoutes(app)
 
