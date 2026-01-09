@@ -1,7 +1,9 @@
 import { OpenAPIHono } from '@hono/zod-openapi'
-import { registerUserRoutes } from '../routes/user.routes'
-import { registerSwaggerRoutes } from './swagger.config'
-import { registerErrorRoute } from '../routes/error.routes'
+import userRouter from '../routes/user.routes'
+// import taxProfileRouter from '../routes/tax-profile.routes'
+// import invoiceRouter from '../routes/invoice.routes'
+import { registerOpenApiRoutes } from './openapi.config'
+import { errorHandler } from '../middlewares/error-handler'
 import { AppEnv } from '../models/app.model'
 
 /**
@@ -11,9 +13,13 @@ import { AppEnv } from '../models/app.model'
 export const createApp = () => {
   const app = new OpenAPIHono<AppEnv>()
 
-  registerUserRoutes(app)
-  registerSwaggerRoutes(app)
-  registerErrorRoute(app)
+  app.route('/user', userRouter)
+  // app.route('/tax-profile', taxProfileRouter)
+  // app.route('/invoice', invoiceRouter)
+
+  registerOpenApiRoutes(app)
+
+  app.onError(errorHandler)
 
   return app
 }

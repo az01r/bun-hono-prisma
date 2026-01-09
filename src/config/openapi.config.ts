@@ -7,7 +7,7 @@ import { AppEnv } from '../models/app.model'
  * Register Swagger/OpenAPI documentation endpoints
  * @param app - OpenAPIHono instance
  */
-export const registerSwaggerRoutes = (app: OpenAPIHono<AppEnv>) => {
+export const registerOpenApiRoutes = (app: OpenAPIHono<AppEnv>) => {
   // LLMs.txt endpoint
   app.get('/llms.txt', async (c) => {
     const spec = app.getOpenAPI31Document({
@@ -31,6 +31,7 @@ export const registerSwaggerRoutes = (app: OpenAPIHono<AppEnv>) => {
     url: '/openapi.json',
   }))
 
+  // Adds a global JWT authentication to the swagger
   app.openAPIRegistry.registerComponent('securitySchemes', 'Bearer', {
     type: 'http',
     scheme: 'bearer',

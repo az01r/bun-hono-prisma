@@ -1,11 +1,10 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
 import { Context } from "hono";
 import { StatusCode } from 'hono/utils/http-status';
 import { ConflictError, ErrorResponse, ResourceNotFoundError, UnauthorizedError } from "../models/error.model";
 import { ZodError, treeifyError } from "zod";
 import { AppEnv } from "../models/app.model";
 
-const errorRoute = (err: Error, c: Context<AppEnv>) => {
+export const errorHandler = (err: Error, c: Context<AppEnv>) => {
   const message = err.message || "Internal Server Error";
   let statusCode: StatusCode = 500;
 
@@ -32,13 +31,4 @@ const errorRoute = (err: Error, c: Context<AppEnv>) => {
     ...(validationErrors && { validationErrors })
   }
   return c.json(errorResponse, statusCode);
-}
-
-
-/**
- * Register error route
- * @param app - OpenAPIHono instance
- */
-export const registerErrorRoute = (app: OpenAPIHono<AppEnv>) => {
-  app.onError(errorRoute)
 }

@@ -4,7 +4,7 @@ import { deleteUser, getUser, login, signup, updateUser } from '../controllers/u
 import { ErrorResponseSchema } from '../models/error.model'
 import { isAuth } from '../middlewares/isAuth'
 import { AppEnv } from '../models/app.model'
-import { INVALID_EMAIL_OR_PASSWORD, UNAUTHORIZED, USER_NOT_FOUND, VALIDATION_ERROR } from '../utils/constants'
+import { INVALID_EMAIL_OR_PASSWORD, UNAUTHORIZED, USER_DELETED_SUCCESSFULLY, USER_NOT_FOUND, VALIDATION_ERROR } from '../utils/constants'
 
 export const signupRoute = createRoute({
   method: 'post',
@@ -60,7 +60,7 @@ export const loginRoute = createRoute({
 
 export const getUserRoute = createRoute({
   method: 'get',
-  path: '/user',
+  path: '/',
   security: [{ Bearer: [] }],
   middleware: [isAuth],
   responses: {
@@ -81,7 +81,7 @@ export const getUserRoute = createRoute({
 
 export const updateUserRoute = createRoute({
   method: 'put',
-  path: '/user',
+  path: '/',
   security: [{ Bearer: [] }],
   middleware: [isAuth],
   request: {
@@ -113,37 +113,31 @@ export const updateUserRoute = createRoute({
 
 export const deleteUserRoute = createRoute({
   method: 'delete',
-  path: '/user',
+  path: '/',
   security: [{ Bearer: [] }],
   middleware: [isAuth],
   responses: {
     200: {
       content: { 'application/json': { schema: DeleteUserResponseSchema } },
-      description: 'User deleted successfully',
+      description: USER_DELETED_SUCCESSFULLY,
     },
     401: {
       content: { 'application/json': { schema: ErrorResponseSchema } },
-      description: 'Unauthorized',
+      description: UNAUTHORIZED,
     },
     404: {
       content: { 'application/json': { schema: ErrorResponseSchema } },
-      description: 'User not found',
-    },
-    422: {
-      content: { 'application/json': { schema: ErrorResponseSchema } },
-      description: 'Invalid user details',
+      description: USER_NOT_FOUND,
     },
   },
 })
 
-/**
- * Register user routes
- * @param app - OpenAPIHono instance
- */
-export const registerUserRoutes = (app: OpenAPIHono<AppEnv>) => {
-  app.openapi(signupRoute, signup)
-  app.openapi(loginRoute, login)
-  app.openapi(getUserRoute, getUser)
-  app.openapi(updateUserRoute, updateUser)
-  app.openapi(deleteUserRoute, deleteUser)
-}
+const userRouter = new OpenAPIHono<AppEnv>()
+
+userRouter.openapi(signupRoute, signup)
+userRouter.openapi(loginRoute, login)
+userRouter.openapi(getUserRoute, getUser)
+userRouter.openapi(updateUserRoute, updateUser)
+userRouter.openapi(deleteUserRoute, deleteUser)
+
+export default userRouter
